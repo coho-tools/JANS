@@ -8,3 +8,8 @@ Related documents
   1. internal/paul_java_opt: Paul's work for optimizing Java code for performance
   2. pubs/phd11: chapter 4.3.2 LP solver and LP projection algorithm
   3. pubs/ms06: basic/LP solver/projection, a little dated, internal based LP solver  
+
+
+Version: 
+  1.0: initial version by chao
+  1.1: performance optimized by Paul
