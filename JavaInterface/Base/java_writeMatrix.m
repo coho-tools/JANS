@@ -19,7 +19,7 @@ else
 		for i = 1:rows 
 			str = sprintf('%s [',str); 
 			if(cols > 0) 
-				vstr = sprintf([fmt],M(i,1));
+				vstr = sprintf(fmt,M(i,1));
 				str = [str,vstr];
 				if(cols > 1) 
 					vstr = sprintf([', ',fmt],M(i,2:end));

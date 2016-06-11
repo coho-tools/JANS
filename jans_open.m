@@ -25,11 +25,11 @@ function jans_open(debug)
   cmd = sprintf('mktemp -d %s/%s_XXX',jans_info('sys_path'),datestr(now,'yy-mm-dd')); 
   [status,threadPath] = unix(cmd);
   if(status)
-	  error(['Can not create a unique  directory for JANS']); 
+	  error('Can not create a unique  directory for JANS'); 
   end
   threadPath = threadPath(1:end-1); % remove \n
 	jans_cfg('set','threadPath',threadPath);
-  disp(sprintf('  A unique dir %s has been create for this JANS thread.',threadPath));	
+  fprintf('  A unique dir %s has been create for this JANS thread.',threadPath);	
 
 	% Open Java
 	disp('Link Matlab and Java threads');
