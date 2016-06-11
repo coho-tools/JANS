@@ -21,7 +21,7 @@ end
 
 fprintf('Closing Java Threads: ')
 for i=1:jNum
-  fprintf('  %i',i)
+  fprintf(' %i ',i)
   java_useThread(i);
   if(javaOut(i)>3)
 	  java_writeLine('exit();');

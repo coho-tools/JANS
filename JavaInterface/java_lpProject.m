@@ -15,12 +15,15 @@ function hull = java_lpProject(lp, x, y,tol)
 % Uses Java LP engine
 n = size(lp.A,2);
 
-% send LP to java process
+% send COHO LP to java process
 A = -lp.A; b = -lp.b; % Java side uses Ax >= b
-bwd = lp.bwd; fwd = lp.fwd;
 Aeq = zeros(0,n); beq = zeros(0,1);
 pos = zeros(n,1);
-bwd = lp.bwd; fwd = lp.fwd;
+if(isfield(lp,'bwd'))
+  bwd = lp.bwd; fwd = lp.fwd;
+else
+  bwd = []; fwd = [];
+end
 
 java_writeComment('BEGIN lp_project'); % comment in matlab2java
 java_writeLabel; % comment in java2matlab

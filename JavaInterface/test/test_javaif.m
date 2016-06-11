@@ -124,9 +124,9 @@ function test_poly
 	% 5. set, get configuration
 	disp('5. Test java_getParams');
 	v = java_getParams(1);
-	disp(['The old value is ',num2str(v)]);
+	disp(['The old value of maxNewEdgeLength is ',num2str(v)]);
 	disp('Set the parameter as 1'); 
 	java_setParams(1,1.0);
 	v = java_getParams(1);
-	disp(['The new value is ',num2str(v)]);
+	disp(['The new value of maxNewEdgeLength is ',num2str(v)]);
 %end
