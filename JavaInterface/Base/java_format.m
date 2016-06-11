@@ -2,7 +2,7 @@ function nf = java_format(where)
 % nf = java_format('write');
 % nf = java_format('read');
 
-fmt = cra_cfg('get','javaFormat');
+fmt = jans_cfg('get','javaFormat');
 switch(lower(where))
 	case 'write'
 		switch(fmt)

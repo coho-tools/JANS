@@ -9,19 +9,19 @@ function [javaIn, javaOut] = java_open(debug)
 if(nargin<1||isempty(debug))
 	debug = 0;
 end
-if( (cra_cfg('has','javaIn') && ~isempty(cra_cfg('get','javaIn'))) || ... 
-	  (cra_cfg('has','javaOut') && ~isempty(cra_cfg('get','javaOut'))) )
+if( (jans_cfg('has','javaIn') && ~isempty(jans_cfg('get','javaIn'))) || ... 
+	  (jans_cfg('has','javaOut') && ~isempty(jans_cfg('get','javaOut'))) )
 	java_close; % close old one first;
 end
 
-jNum = cra_cfg('get','javaThreads'); 
+jNum = jans_cfg('get','javaThreads'); 
 
-fork_bin = cra_info('fork_bin');
-java_classpath = cra_info('java_classpath'); 
-% sys_path= cra_info('sys_path');
+fork_bin = jans_info('fork_bin');
+java_classpath = jans_info('java_classpath'); 
+% sys_path= jans_info('sys_path');
 
 % create a dir 
-threadPath = cra_cfg('get','threadPath');
+threadPath = jans_cfg('get','threadPath');
 
 fprintf('Creating Java Threads: ')
 javaIn = zeros(jNum,1); javaOut = zeros(jNum,1);
@@ -34,12 +34,12 @@ for i=1:jNum
   
   % create fifo
   cmd = ['mkfifo -m 0600 ',m2j];
-  [~,status] = utils_system('cmd',cmd);
+  status = unix(cmd);
   if(status)
   	error(['Failed to run command',cmd]);
   end
   cmd = ['mkfifo -m 0600 ',j2m]; 
-  [~,status] = utils_system('cmd',cmd); 
+  status = unix(cmd);
   if(status) 
   	error(['Failed to run command',cmd]); 
   end 
@@ -54,7 +54,7 @@ for i=1:jNum
   end
   % csh will make matlab exit directly, therefore, we force to use bash 
   cmd = [fork_bin,' -c "', shcmd, '"'];
-  [~,status] = utils_system('cmd',cmd);
+  status = unix(cmd);
   if(status)
   	error(['Failed to run command ',cmd]);
   end
@@ -69,4 +69,4 @@ for i=1:jNum
 end
 fprintf('\n')
 
-cra_cfg('set','javaIn',javaIn,'javaOut',javaOut,'javaTC',0, 'javaCrashed', 0,'currThread',1); 
+jans_cfg('set','javaIn',javaIn,'javaOut',javaOut,'javaTC',0, 'javaCrashed', 0,'currThread',1); 

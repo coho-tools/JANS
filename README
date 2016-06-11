@@ -1,26 +1,10 @@
-Coho-Reach: Coho Reachability Analysis Tool
+JANS: Java APR Numerical Solver for COHO platform 
+  This package implements the numerical solver needed by RAC/FRAC. 
+  It is mainly a LP solver, Gemoetry operations, and LP projection algorithms. 
+  It ensures correctness, not suffering from numerical issues, as it is based on APR(arbitrary-precision-rational). 
+  (Honestly, it is hybrid of double,interval, and APR for performance reasons) 
 
-FAQ: 
-=====================
-1. How to install Coho-Reach
-   sh install.sh
-=====================
-2. How to use Coho-Reach, small example
-   cra_open;
-   % Tell Coho-Reach what's the dynamics 
-   % The function must accept a LP input and returns a LDI models
-   cra_cfg('set','modelFunc' <function handle>);
-   % Create the init projectagon. 
-   ph = ph_create(dim,planes,hulls....); % see Projectagon packages
-   % Advance the projectagon
-   fwdPh = ph_advance(ph); 
-   % Show the results
-   ph_display(fwdPh);
-   cra_close;   
-=====================
-3. Any more examples ?
-   ./example/
-   ./Projectagon/test/
-=====================
-4. More documents
-   ./doc
+Related documents
+  1. internal/paul_java_opt: Paul's work for optimizing Java code for performance
+  2. pubs/phd11: chapter 4.3.2 LP solver and LP projection algorithm
+  3. pubs/ms06: basic/LP solver/projection, a little dated, internal based LP solver  

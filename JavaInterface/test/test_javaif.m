@@ -28,7 +28,8 @@ function test_lp
 	disp('1. Try to solve a very simple LP');
 	f = ones(2,1);
 	A = [eye(2);-eye(2)]; b = [ones(2,1);zeros(2,1)];
-	[v,x,status] = java_lpSolve(f, A, b);
+  lp.A = A; lp.b = b;
+	[v,x,status] = java_lpSolve(f, lp); 
 	if(x~=0) 
 		error('The result from Java LP solver is incorrect'); 
 	end

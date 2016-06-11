@@ -3,10 +3,10 @@ function java_close
 % tells the java CG engine to exit and closes the java pipes
 % assumes that the global file handles have been set by java_open()
 %
-javaIn = cra_cfg('get','javaIn');
-javaOut = cra_cfg('get','javaOut'); 
-javaCrashed = cra_cfg('get','javaCrashed');
-jNum = cra_cfg('get','javaThreads');
+javaIn = jans_cfg('get','javaIn');
+javaOut = jans_cfg('get','javaOut'); 
+javaCrashed = jans_cfg('get','javaCrashed');
+jNum = jans_cfg('get','javaThreads');
 
 if(javaCrashed)
 	disp('Warning: Java thread crashed. Please kill the process manually!');
@@ -32,14 +32,14 @@ for i=1:jNum
   if(javaOut(i)>3)
 	  fclose(javaOut(i));
   end
-  threadPath = cra_cfg('get','threadPath');
-  cmd = sprintf('unlink %s/matlab2java_%',threadPath,i);
-  utils_system('cmd',cmd);
-  cmd = sprintf('unlink %s/java2matlab_%',threadPath,i);
-  utils_system('cmd',cmd);
+  threadPath = jans_cfg('get','threadPath');
+  cmd = sprintf('unlink %s/matlab2java_%i',threadPath,i);
+  unix(cmd);
+  cmd = sprintf('unlink %s/java2matlab_%i',threadPath,i);
+  unix(cmd);
 end
 fprintf('\n')
 
 
 % we keep tmpDir and TC now, will be reset when java_open 
-cra_cfg('set','javaIn',[],'javaOut',[]);
+jans_cfg('set','javaIn',[],'javaOut',[]);

@@ -7,3 +7,4 @@ echo "Compare results ..."
 diff j2m.log j2m.ref
 
 echo "The Java thread works correctly if no error above" 
+

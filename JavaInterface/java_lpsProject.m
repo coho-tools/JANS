@@ -9,7 +9,7 @@ function hulls = java_lpsProject(lps,xs,ys,tols)
   if(~iscell(ys))
     ys = repmat({ys},N,1);
   end
-  jNum = cra_cfg('get','javaThreads');
+  jNum = jans_cfg('get','javaThreads');
 
   % the input buffer can not hold too many requests 
   cap = jNum*500;
@@ -22,7 +22,7 @@ function hulls = java_lpsProject(lps,xs,ys,tols)
       lp = lps{i}; 
       x = xs{i}; y = ys{i}; tol = tols(i);
       curr = mod(i,jNum); curr = curr+jNum*(curr==0);
-      fprintf('dispatch %i-th job with TC = %i to the %i-th thread\n',i,cra_cfg('get','javaTC')+1,curr)
+      fprintf('dispatch %i-th job with TC = %i to the %i-th thread\n',i,jans_cfg('get','javaTC')+1,curr)
       java_useThread(curr); 
       java_lpsProject_dispatch(lp,x,y,tol);
     end
