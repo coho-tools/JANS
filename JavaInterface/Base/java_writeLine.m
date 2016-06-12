@@ -4,5 +4,5 @@ function java_writeLine(str)
 % It add '\n' to the string automatically.
 
 results = jans_cfg('get','javaIn','currThread')
-javaIn = results{1}; idx  = results{1};
+javaIn = results{1}; idx  = results{2};
 fprintf(javaIn(idx), '%s\n',str);
