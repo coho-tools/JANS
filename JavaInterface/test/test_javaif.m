@@ -36,8 +36,7 @@ function test_lp
   
   disp('2. Try to solver a very simple projection problem');	
 	lp.A = A; lp.b = b;
-	lp.Aeq = zeros(0,2);
-	lp.beq = zeros(0,1);
+	lp.bwd = []; lp.fwd = []; 
 	x = [1;0]; y = [0;1];
 	hull = java_lpProject(lp, x, y,1e-3);
 	if(~all(all(hull==[0,1,1,0;0,0,1,1]))) 

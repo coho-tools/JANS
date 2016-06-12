@@ -23,9 +23,8 @@ echo "====Step3: Comple C codes===="
 cd $JANS_HOME/JavaInterface/Fork
 echo "Compile C files ..."
 make
-cd $JANS_HOME/JavaInterface
-mex fasthex2num.c
-mex to_matrix.cpp
+cd $JANS_HOME/JavaInterface/Convert
+make
 echo "" 
 
 echo "====Step4: Check the pipe between Java and Matlab thread works correctly====" 
@@ -71,6 +70,7 @@ function  info = jans_info_init
   jans_dirs = {
     'JavaInterface',
     'JavaInterface/Fork',
+    'JavaInterface/Convert',
     'JavaInterface/Base' };
 
   % current user
