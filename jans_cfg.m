@@ -16,9 +16,10 @@
 %     javaThreads: Number of java processes
 %       value:    positive number
 %       default:  1
-%     threadPath: Path of threads 
+%     threadPath: unique path for this thread for storing related info
 %       value:    file path
-%       defaults: sys_path
+%       default: cra_info('sys_path')
+%       NOTE: this is read-only for users
 
 
 function [val,status] = jans_cfg(op,varargin)

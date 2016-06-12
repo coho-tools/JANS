@@ -29,7 +29,7 @@ function jans_open(debug)
   end
   threadPath = threadPath(1:end-1); % remove \n
 	jans_cfg('set','threadPath',threadPath);
-  fprintf('  A unique dir %s has been create for this JANS thread.',threadPath);	
+  fprintf('  A unique dir %s has been create for this JANS thread.\n',threadPath);	
 
 	% Open Java
 	disp('Link Matlab and Java threads');
