@@ -31,7 +31,7 @@ function [val,status] = jans_cfg(op,varargin)
 		JANS_CFG= jans_cfg_default;
 		disp('init jans_cfg');
 	end
-  [val,status,update] = utils_struct(JANS_CFG,op,varargin{:});
+  [val,status,update] = coho_struct(JANS_CFG,op,varargin{:});
   if(status==0&&update)
 		jans_cfg_check(val);
 		JANS_CFG = val; % save the update

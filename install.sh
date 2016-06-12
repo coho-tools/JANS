@@ -71,8 +71,7 @@ function  info = jans_info_init
   jans_dirs = {
     'JavaInterface',
     'JavaInterface/Fork',
-    'JavaInterface/Base'
-    'Utils'};
+    'JavaInterface/Base' };
 
   % current user
   [~,user] = unix('whoami');
