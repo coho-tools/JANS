@@ -1,8 +1,8 @@
 function line = java_readLine
 % line = java_readLine
 % This function read the next non-comment line
-javaOut = jans_cfg('get','javaOut');
-idx = jans_cfg('get','currThread');
+results = jans_cfg('get','javaOut','currThread');
+javaOut = results{1}; idx = results{2}; 
 fid = javaOut(idx);
 while 1
   line = fgetl(fid);

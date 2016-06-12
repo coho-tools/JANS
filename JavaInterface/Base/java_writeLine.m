@@ -2,6 +2,7 @@ function java_writeLine(str)
 % java_writeLine(str)
 % This function writes a new line to java
 % It add '\n' to the string automatically.
-javaIn = jans_cfg('get','javaIn'); 
-idx = jans_cfg('get','currThread');
+
+results = jans_cfg('get','javaIn','currThread')
+javaIn = results{1}; idx  = results{1};
 fprintf(javaIn(idx), '%s\n',str);
