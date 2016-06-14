@@ -17,8 +17,7 @@ function [vs,xs,ss,opts] = java_lpsSolve(fs,lps)
   for iter = 1:length(sidx)-1
     % dispatch requests
     for i= sidx(iter):sidx(iter+1)-1
-      lp = lps{i}; 
-      f = fs{i}; 
+      lp = lps{i}; f = fs{i}; 
       curr = mod(i,jNum); curr = curr+jNum*(curr==0);
       fprintf('dispatch %i-th LP job with TC = %i to the %i-th thread\n',i,jans_cfg('get','javaTC')+1,curr)
       java_useThread(curr); 
@@ -30,7 +29,7 @@ function [vs,xs,ss,opts] = java_lpsSolve(fs,lps)
       curr = mod(i,jNum); curr = curr+jNum*(curr==0);
       fprintf('get %i-th LP result from the %i-th thread\n',i, curr)
       java_useThread(curr);
-      [vs(i,1),xs{i,1},ss(i,1),opts{i,1}] = java_lpSolve_get();
+      [vs(i,1),xs{i,1},ss(i,1),opts{i,1}] = java_lpSolve_get(fs{i});
     end
   end
 end

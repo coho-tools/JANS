@@ -39,8 +39,4 @@ function [v,x,status,optBasis] = java_lpSolve(f, lp)
 %     
 
 java_lpSolve_dispatch(f,lp);
-[v,x,status,optBasis] = java_lpSolve_get(); 
-if(status~=0)
-  dim = size(lp.A,2);
-  v = 0; x = zeros(dim,1); optBasis=zeros(dim,1);
-end
+[v,x,status,optBasis] = java_lpSolve_get(f); 
