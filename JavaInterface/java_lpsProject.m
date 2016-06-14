@@ -16,8 +16,7 @@ function hulls = java_lpsProject(lps,xs,ys,tols)
   jNum = jans_cfg('get','javaThreads');
 
   % the input buffer can not hold too many requests 
-  cap = jNum*500;
-  %cap = jNum*10;
+  cap = jNum*64;
   sidx = [1:cap:N,N+1];
 
   for iter = 1:length(sidx)-1
@@ -26,7 +25,7 @@ function hulls = java_lpsProject(lps,xs,ys,tols)
       lp = lps{i}; 
       x = xs{i}; y = ys{i}; tol = tols(i);
       curr = mod(i,jNum); curr = curr+jNum*(curr==0);
-      fprintf('dispatch %i-th job with TC = %i to the %i-th thread\n',i,jans_cfg('get','javaTC')+1,curr)
+      fprintf('dispatch %i-th project job with TC = %i to the %i-th thread\n',i,jans_cfg('get','javaTC')+1,curr)
       java_useThread(curr); 
       java_lpProject_dispatch(lp,x,y,tol);
     end
@@ -35,7 +34,7 @@ function hulls = java_lpsProject(lps,xs,ys,tols)
     for i= sidx(iter):sidx(iter+1)-1
       x = xs{i}; y = ys{i}; 
       curr = mod(i,jNum); curr = curr+jNum*(curr==0);
-      fprintf('get %i-th result from the %i-th thread\n',i, curr)
+      fprintf('get %i-th result from the project %i-th thread\n',i, curr)
       java_useThread(curr);
       hulls{i} = java_lpProject_get(x,y);
     end

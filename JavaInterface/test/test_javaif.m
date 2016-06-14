@@ -25,18 +25,25 @@ function test_err
 	p = java_polyUnion({p1,p2});
 
 function test_lp
-	disp('1. Try to solve a very simple LP');
+	disp('1.a Try to solve a very simple LP');
 	f = ones(2,1);
 	A = [eye(2);-eye(2)]; b = [ones(2,1);zeros(2,1)];
-  lp.A = A; lp.b = b;
-	[v,x,status] = java_lpSolve(f, lp); 
+  lp.A = A; lp.b = b; lp.bwd = []; lp.fwd = [];
+	[v,x,status,basis] = java_lpSolve(f, lp); 
 	if(x~=0) 
+		error('The result from Java LP solver is incorrect'); 
+	end
+
+	disp('1.b Try a infeasible LP'); 
+	A = [eye(2);-eye(2)]; b = [-ones(2,1);zeros(2,1)];
+  lp.A = A; lp.b = b; lp.bwd = []; lp.fwd = [];
+	[v,x,status,basis] = java_lpSolve(f, lp); 
+	if(status~=2) 
 		error('The result from Java LP solver is incorrect'); 
 	end
   
   disp('2. Try to solver a very simple projection problem');	
-	lp.A = A; lp.b = b;
-	lp.bwd = []; lp.fwd = []; 
+	lp.A = A; lp.b = b; lp.bwd = []; lp.fwd = []; 
 	x = [1;0]; y = [0;1];
 	hull = java_lpProject(lp, x, y,1e-3);
 	if(~all(all(hull==[0,1,1,0;0,0,1,1]))) 
