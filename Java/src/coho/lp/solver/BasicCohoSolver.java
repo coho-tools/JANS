@@ -122,22 +122,29 @@ public class BasicCohoSolver implements CohoSolver{
 		try{
 			optBasis= findOptBySimplex(initialBasis);
 		}catch(UnboundedLPError e){//unbounded problem
-			if(isDual)
-				return new CohoSolverResult(LPResult.ResultStatus.UNBOUNDED,new CohoDouble(Double.MAX_VALUE),(LPBasis)null,(Matrix)null);
-			else
-				return new CohoSolverResult(LPResult.ResultStatus.INFEASIBLE,null,(LPBasis)null,(Matrix)null);
+      // Provide non-null data such that we still get result, although not valid
+      optBasis = initialBasis;
+      int nvars = this.lp.eq().ncols(); // # of variables
+      Matrix optPoint = DoubleMatrix.create(nvars,1).zeros(); 
+			if(isDual){
+        CohoDouble optCost = new CohoDouble(Double.MAX_VALUE); 
+				return new CohoSolverResult(LPResult.ResultStatus.UNBOUNDED,optCost, optBasis, optPoint); 
+      }else{
+        CohoDouble optCost = new CohoDouble(0); 
+				return new CohoSolverResult(LPResult.ResultStatus.INFEASIBLE,optCost, optBasis, optPoint); 
+      }
 		}
 		if(optBasis==null){//infeasible problem
+      // Provide non-null data such that we still get result, although not valid
+      CohoDouble optCost = new CohoDouble(0); 
+      optBasis = initialBasis;
+      int nvars = this.lp.eq().ncols(); // # of variables
+      Matrix optPoint = DoubleMatrix.create(nvars,1).zeros(); 
 			if(isDual){
-				return new CohoSolverResult(LPResult.ResultStatus.INFEASIBLE,null,(LPBasis)null,(Matrix)null);
+				return new CohoSolverResult(LPResult.ResultStatus.INFEASIBLE,optCost, optBasis, optPoint); 
 			}else{
 				// we do not know how to distinct a unbounded lp with a infeasible lp
-				return new CohoSolverResult(LPResult.ResultStatus.INFEASIBLEORUNBOUNDED,null,(LPBasis)null,(Matrix)null);
-//				if(isCohoUnbounded())
-//					return new CohoSolverResult(LPResult.ResultStatus.UNBOUNDED,new CohoDouble(Double.MAX_VALUE),(LPBasis)null,(Matrix)null);
-//				else
-//					return new CohoSolverResult(LPResult.ResultStatus.INFEASIBLE,null,(LPBasis)null,(Matrix)null);
-				
+				return new CohoSolverResult(LPResult.ResultStatus.INFEASIBLEORUNBOUNDED,optCost, optBasis, optPoint); 
 			}
 		}
 

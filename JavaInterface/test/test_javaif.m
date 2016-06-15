@@ -1,6 +1,6 @@
 function test_javaif
   jans_cfg('set','javaThreads',1);
-  jans_open;
+  jans_open(true);
   disp('****Testing JavaInterface package.****'); 
   disp('**Test Java linear programming solver.**');
   test_lp

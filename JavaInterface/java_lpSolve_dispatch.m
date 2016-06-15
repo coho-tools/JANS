@@ -26,5 +26,10 @@ function java_lpSolve_dispatch(f, lp)
   java_writeMatrix(f,'f'); % obj
   java_writeLine('lpSoln = lp_opt(lp, f);');
   java_writeLine('println(lp_status(lpSoln));');
+  fmt = java_format('read');
+  java_writeLine( sprintf('println(lp_cost(lpSoln),%s);', fmt) );
+  java_writeLine( sprintf('println(lp_point(lpSoln),%s);',fmt) );
+  java_writeLine( sprintf('println(lp_basis(lpSoln),%s);',fmt) );
   java_writeDummy; % force java to compute 
+  java_writeComment('END lp_opt');
 end
